@@ -5,6 +5,7 @@ public class Bullet : MonoBehaviour {
     // Target should come from Turret
     private Transform target;
     public float speed = 70f;
+    public float explosionRadius = 0f;
     public GameObject impactEffect;
     
     public void Seek (Transform _target)
@@ -40,8 +41,42 @@ public class Bullet : MonoBehaviour {
     void HitTarget()
     {
         GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
-        Destroy(effectIns, 2f);
-        Destroy(target.gameObject);
+        Destroy(effectIns, 5f);
+
+        // Hit many or single target
+        if (explosionRadius > 0f)
+        {
+            Explode();
+        }
+        else
+        {
+            Damage(target);
+        }
+
         Destroy(gameObject);
+    }
+
+    void Explode()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        // For each target that was hit by explosion
+        foreach (Collider collider in colliders)
+        {
+            if(collider.tag == "Enemy")
+            {
+                Damage(collider.transform);
+            }
+        }
+    }
+
+    void Damage(Transform enemy)
+    {
+        Destroy(enemy.gameObject);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
 }
