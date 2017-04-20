@@ -32,6 +32,9 @@ public class Bullet : MonoBehaviour {
 
         // No orbital behaviours :( - Space.World
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
+
+        // Rotate to face the target
+        transform.LookAt(target);
 	}
 
     void HitTarget()
