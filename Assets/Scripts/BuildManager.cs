@@ -17,6 +17,8 @@ public class BuildManager : MonoBehaviour {
     public GameObject missileLauncherPrefab;
 
     public bool CanBuild { get { return turretToBuild != null; } }
+    public bool HasMoney { get { return PlayerStats.Money >= turretToBuild.cost; } }
+
     private TurretBlueprint turretToBuild;
     public void SelectTurretToBuild(TurretBlueprint turret)
     {
@@ -25,7 +27,7 @@ public class BuildManager : MonoBehaviour {
 
     public void BuildTurretOn (Node node)
     {
-        if (PlayerStats.Money < turretToBuild.cost)
+        if (!HasMoney)
         {
             Debug.Log("Not enough money to build turret!");
             return;
