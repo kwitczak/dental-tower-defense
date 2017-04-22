@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\BuildManager.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Assets\Scripts\Node.cs" />
     <Compile Include="Assets\Scripts\Shop.cs" />
     <Compile Include="Assets\Scripts\Turret.cs" />
+    <Compile Include="Assets\Scripts\TurretBlueprint.cs" />
     <Compile Include="Assets\Scripts\WaveSpawner.cs" />
     <Compile Include="Assets\Scripts\Waypoints.cs" />
   </ItemGroup>
