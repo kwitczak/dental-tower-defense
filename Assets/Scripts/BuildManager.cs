@@ -3,6 +3,7 @@
 public class BuildManager : MonoBehaviour {
 
     public GameObject buildEffect;
+    public GameObject sellEffect;
 
     public static BuildManager instance;
     void Awake ()
