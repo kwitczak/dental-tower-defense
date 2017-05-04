@@ -9,6 +9,8 @@ public class EnemyMovement : MonoBehaviour {
     private int wavepointIndex = 0;
     private Enemy enemy;
 
+    public bool jumps = true;
+
     void Start()
     {
         enemy = GetComponent<Enemy>();
@@ -19,7 +21,8 @@ public class EnemyMovement : MonoBehaviour {
 
     void Jump()
     {
-        rb.AddForce(new Vector3(0, 8, 0), ForceMode.Impulse);
+        if(jumps)
+            rb.AddForce(new Vector3(0, 8, 0), ForceMode.Impulse);
     }
 
     void Update()
