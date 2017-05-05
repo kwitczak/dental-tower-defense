@@ -1,0 +1,229 @@
+fileFormatVersion: 2
+guid: d64987650bb88324b97d3620bb066613
+timeCreated: 1493998127
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Teeth1
+    100002: Teeth1_1
+    100004: Teeth1_2
+    100006: Teeth1_3
+    100008: Teeth1_4
+    100010: Teeth1_5
+    100012: Teeth1_6
+    100014: Teeth1_7
+    100016: Teeth2
+    100018: Teeth2_1
+    100020: Teeth2_2
+    100022: Teeth2_3
+    100024: Teeth2_4
+    100026: Teeth2_5
+    100028: Teeth2_6
+    100030: Teeth2_7
+    100032: Teeth3
+    100034: Teeth3_1
+    100036: Teeth3_2
+    100038: Teeth3_3
+    100040: Teeth3_4
+    100042: Teeth3_5
+    100044: Teeth3_6
+    100046: Teeth3_7
+    100048: Teeth4
+    100050: Teeth5
+    100052: Teeth6
+    100054: Teeth7
+    100056: TeethLower
+    100058: TeethUpper
+    100060: //RootNode
+    400000: Teeth1
+    400002: Teeth1_1
+    400004: Teeth1_2
+    400006: Teeth1_3
+    400008: Teeth1_4
+    400010: Teeth1_5
+    400012: Teeth1_6
+    400014: Teeth1_7
+    400016: Teeth2
+    400018: Teeth2_1
+    400020: Teeth2_2
+    400022: Teeth2_3
+    400024: Teeth2_4
+    400026: Teeth2_5
+    400028: Teeth2_6
+    400030: Teeth2_7
+    400032: Teeth3
+    400034: Teeth3_1
+    400036: Teeth3_2
+    400038: Teeth3_3
+    400040: Teeth3_4
+    400042: Teeth3_5
+    400044: Teeth3_6
+    400046: Teeth3_7
+    400048: Teeth4
+    400050: Teeth5
+    400052: Teeth6
+    400054: Teeth7
+    400056: TeethLower
+    400058: TeethUpper
+    400060: //RootNode
+    2300000: Teeth1
+    2300002: Teeth1_1
+    2300004: Teeth1_2
+    2300006: Teeth1_3
+    2300008: Teeth1_4
+    2300010: Teeth1_5
+    2300012: Teeth1_6
+    2300014: Teeth1_7
+    2300016: Teeth2
+    2300018: Teeth2_1
+    2300020: Teeth2_2
+    2300022: Teeth2_3
+    2300024: Teeth2_4
+    2300026: Teeth2_5
+    2300028: Teeth2_6
+    2300030: Teeth2_7
+    2300032: Teeth3
+    2300034: Teeth3_1
+    2300036: Teeth3_2
+    2300038: Teeth3_3
+    2300040: Teeth3_4
+    2300042: Teeth3_5
+    2300044: Teeth3_6
+    2300046: Teeth3_7
+    2300048: Teeth4
+    2300050: Teeth5
+    2300052: Teeth6
+    2300054: Teeth7
+    2300056: TeethLower
+    2300058: TeethUpper
+    3300000: Teeth1
+    3300002: Teeth1_1
+    3300004: Teeth1_2
+    3300006: Teeth1_3
+    3300008: Teeth1_4
+    3300010: Teeth1_5
+    3300012: Teeth1_6
+    3300014: Teeth1_7
+    3300016: Teeth2
+    3300018: Teeth2_1
+    3300020: Teeth2_2
+    3300022: Teeth2_3
+    3300024: Teeth2_4
+    3300026: Teeth2_5
+    3300028: Teeth2_6
+    3300030: Teeth2_7
+    3300032: Teeth3
+    3300034: Teeth3_1
+    3300036: Teeth3_2
+    3300038: Teeth3_3
+    3300040: Teeth3_4
+    3300042: Teeth3_5
+    3300044: Teeth3_6
+    3300046: Teeth3_7
+    3300048: Teeth4
+    3300050: Teeth5
+    3300052: Teeth6
+    3300054: Teeth7
+    3300056: TeethLower
+    3300058: TeethUpper
+    4300000: Teeth3_7
+    4300002: Teeth3_6
+    4300004: Teeth3_5
+    4300006: Teeth3_4
+    4300008: Teeth3_3
+    4300010: Teeth3_2
+    4300012: Teeth3_1
+    4300014: Teeth2_7
+    4300016: Teeth2_6
+    4300018: Teeth2_5
+    4300020: Teeth2_3
+    4300022: Teeth2_4
+    4300024: Teeth2_2
+    4300026: Teeth2_1
+    4300028: Teeth1_7
+    4300030: Teeth1_6
+    4300032: Teeth1_5
+    4300034: Teeth1_4
+    4300036: Teeth1_3
+    4300038: Teeth1_2
+    4300040: Teeth1_1
+    4300042: Teeth7
+    4300044: Teeth4
+    4300046: Teeth6
+    4300048: Teeth5
+    4300050: TeethUpper
+    4300052: Teeth3
+    4300054: Teeth2
+    4300056: Teeth1
+    4300058: TeethLower
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
