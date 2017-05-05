@@ -7,6 +7,6 @@ public class Lives : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        livesText.text = PlayerStats.Lives + " ZĘBY";
+        livesText.text = PlayerStats.Lives.ToString();
 	}
 }

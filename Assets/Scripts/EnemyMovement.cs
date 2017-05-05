@@ -29,7 +29,7 @@ public class EnemyMovement : MonoBehaviour {
     {
         Vector3 dir = new Vector3(
             target.position.x - transform.position.x,
-            0f,
+            target.position.y - transform.position.y,
             target.position.z - transform.position.z
             );
         //Vector3 dir = target.position - transform.position;
