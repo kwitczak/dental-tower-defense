@@ -4,6 +4,10 @@ public class BuildManager : MonoBehaviour {
 
     public GameObject buildEffect;
     public GameObject sellEffect;
+    private TurretBlueprint turretToBuild;
+
+    public NodeUI nodeUI;
+    private Node selectedNode;
 
     public static BuildManager instance;
     void Awake ()
@@ -19,7 +23,6 @@ public class BuildManager : MonoBehaviour {
     public bool CanBuild { get { return turretToBuild != null; } }
     public bool HasMoney { get { return PlayerStats.Money >= turretToBuild.cost; } }
 
-    private TurretBlueprint turretToBuild;
     public TurretBlueprint GetTurretToBuild ()
     {
         return turretToBuild;
@@ -32,8 +35,6 @@ public class BuildManager : MonoBehaviour {
         DeselectNode();
     }
 
-    public NodeUI nodeUI;
-    private Node selectedNode;
     public void SelectNode (Node node)
     {
         Debug.Log("Select Node");
