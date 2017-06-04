@@ -59,6 +59,12 @@ public class EnemyMovement : MonoBehaviour {
     void EndPath()
     {
         PlayerStats.Lives--;
+
+        GameObject teethToDestroy = GameObject.Find("Teeth" + PlayerStats.Lives);
+        GameObject effect = Instantiate(BuildManager.instance.teethDestroyEffect, teethToDestroy.transform.position, Quaternion.identity);
+        Destroy(teethToDestroy);
+        Destroy(effect, 5f);
+
         WaveSpawner.EnemiesAlive--;
         Destroy(gameObject);
     }

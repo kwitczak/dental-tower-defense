@@ -4,6 +4,7 @@ public class BuildManager : MonoBehaviour {
 
     public GameObject buildEffect;
     public GameObject sellEffect;
+    public GameObject teethDestroyEffect;
     private TurretBlueprint turretToBuild;
 
     public NodeUI nodeUI;
