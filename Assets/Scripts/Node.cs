@@ -112,7 +112,7 @@ public class Node : MonoBehaviour {
 
     void OnMouseEnter ()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (buildManager == null || EventSystem.current.IsPointerOverGameObject())
             return;
 
         if (!buildManager.CanBuild)
