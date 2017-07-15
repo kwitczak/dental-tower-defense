@@ -7,20 +7,42 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class TCPServer : MonoBehaviour
 {
+    public GameObject EmotionPanelGO;
+    public GameObject HeartBeatGO;
+    public GameObject EmotionGO;
+
+    private Text HeartBeatText;
+    private Text EmotionText;
+
     public static bool connectionEstablished = false;
     public static string data = null;
     volatile bool keepReading = true;
     volatile bool keepWaiting = true;
     System.Threading.Thread SocketThread;
+    EmotionData Emotion = null;
 
     // Use this for initialization
     void Start()
     {
+        HeartBeatText = HeartBeatGO.GetComponent<Text>();
+        EmotionText = EmotionGO.GetComponent<Text>();
+
         Application.runInBackground = true;
         startServer();
+    }
+
+    private void Update()
+    {
+        if (connectionEstablished && Emotion != null)
+        {
+            EmotionPanelGO.SetActive(true);
+            HeartBeatText.text = "Tętno: " + Emotion.heartBeat;
+            EmotionText.text = "Emocja: " + Emotion.emotion;
+        }
     }
 
     void startServer()
@@ -119,8 +141,8 @@ public class TCPServer : MonoBehaviour
                 String formattedData = Regex.Replace(data, "[^0-9a-zA-Z{}\",:]+", "");
                 Debug.Log("Formatted Data: " + formattedData);
 
-                EmotionData dataObject = JsonUtility.FromJson<EmotionData>(formattedData);
-                Debug.Log("Data: " + dataObject);
+                Emotion = JsonUtility.FromJson<EmotionData>(formattedData);
+                Debug.Log("Data: " + Emotion);
                 System.Threading.Thread.Sleep(100);
             }
         }
