@@ -25,6 +25,11 @@ public class TCPServer : MonoBehaviour
     System.Threading.Thread SocketThread;
     EmotionData Emotion = null;
 
+    void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -91,7 +96,7 @@ public class TCPServer : MonoBehaviour
             {
                 // Program is suspended while waiting for an incoming connection.
                 Debug.Log("Waiting for Connection");
-                handler = listener.AcceptSocket();
+                handler = handler != null ? handler : listener.AcceptSocket();
 
                 Debug.Log("Connection established");
                 connectionEstablished = true;
@@ -112,22 +117,6 @@ public class TCPServer : MonoBehaviour
 
                     // TODO: HACK - Why 1 byte is broken? I should start from 0!
                     data += Encoding.UTF8.GetString(bytes, 1, bytesRec);
-
-                    //Debug.Log("BytesRec: " + bytesRec);
-                    //Debug.Log("Bytes:" + bytes);
-                    //Debug.Log("UTF32: " + Encoding.UTF32.GetString(bytes, 0, bytesRec));
-                    //Debug.Log("UTF8: " + Encoding.UTF8.GetString(bytes, 0, bytesRec));
-                    //Debug.Log("UTF7: " + Encoding.UTF7.GetString(bytes, 0, bytesRec));
-                    //Debug.Log("ASCII: " + Encoding.ASCII.GetString(bytes, 0, bytesRec));
-                    //Debug.Log("Unicode: " + Encoding.Unicode.GetString(bytes, 0, bytesRec));
-                    //Debug.Log("Default: " + System.Text.Encoding.Default.GetString(bytes, 0, bytesRec));
-
-                    //Debug.Log("UTF32: " + Encoding.UTF32.GetString(bytes, 1, bytesRec));
-                    //Debug.Log("UTF8: " + Encoding.UTF8.GetString(bytes, 1, bytesRec));
-                    //Debug.Log("UTF7: " + Encoding.UTF7.GetString(bytes, 1, bytesRec));
-                    //Debug.Log("ASCII: " + Encoding.ASCII.GetString(bytes, 1, bytesRec));
-                    //Debug.Log("Unicode: " + Encoding.Unicode.GetString(bytes, 1, bytesRec));
-                    //Debug.Log("Default: " + System.Text.Encoding.Default.GetString(bytes, 1, bytesRec));
 
                     if (data.IndexOf("heartBeat") > -1)
                     {
@@ -156,5 +145,24 @@ public class TCPServer : MonoBehaviour
     {
         Debug.Log("OnApplicationQuit");
         stopServer();
+    }
+
+    private void magnificentDebug()
+    {
+        //Debug.Log("BytesRec: " + bytesRec);
+        //Debug.Log("Bytes:" + bytes);
+        //Debug.Log("UTF32: " + Encoding.UTF32.GetString(bytes, 0, bytesRec));
+        //Debug.Log("UTF8: " + Encoding.UTF8.GetString(bytes, 0, bytesRec));
+        //Debug.Log("UTF7: " + Encoding.UTF7.GetString(bytes, 0, bytesRec));
+        //Debug.Log("ASCII: " + Encoding.ASCII.GetString(bytes, 0, bytesRec));
+        //Debug.Log("Unicode: " + Encoding.Unicode.GetString(bytes, 0, bytesRec));
+        //Debug.Log("Default: " + System.Text.Encoding.Default.GetString(bytes, 0, bytesRec));
+
+        //Debug.Log("UTF32: " + Encoding.UTF32.GetString(bytes, 1, bytesRec));
+        //Debug.Log("UTF8: " + Encoding.UTF8.GetString(bytes, 1, bytesRec));
+        //Debug.Log("UTF7: " + Encoding.UTF7.GetString(bytes, 1, bytesRec));
+        //Debug.Log("ASCII: " + Encoding.ASCII.GetString(bytes, 1, bytesRec));
+        //Debug.Log("Unicode: " + Encoding.Unicode.GetString(bytes, 1, bytesRec));
+        //Debug.Log("Default: " + System.Text.Encoding.Default.GetString(bytes, 1, bytesRec));
     }
 }
