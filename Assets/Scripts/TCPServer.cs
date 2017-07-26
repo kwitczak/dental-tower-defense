@@ -23,7 +23,7 @@ public class TCPServer : MonoBehaviour
     volatile bool keepReading = true;
     volatile bool keepWaiting = true;
     System.Threading.Thread SocketThread;
-    EmotionData Emotion = null;
+    public static EmotionData Emotion = null;
 
     void Awake()
     {
@@ -128,6 +128,10 @@ public class TCPServer : MonoBehaviour
 
                 Debug.Log("Original Data: " + data);
                 String formattedData = Regex.Replace(data, "[^0-9a-zA-Z{}\",:]+", "");
+                if (formattedData.Substring(0, 1).Equals("\""))
+                {
+                    formattedData = formattedData.Remove(0, 1);
+                }
                 Debug.Log("Formatted Data: " + formattedData);
 
                 Emotion = JsonUtility.FromJson<EmotionData>(formattedData);

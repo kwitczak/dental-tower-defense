@@ -80,6 +80,8 @@
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CompleteLevel.cs" />
     <Compile Include="Assets\Scripts\EmotionData.cs" />
+    <Compile Include="Assets\Scripts\EmotionLight.cs" />
+    <Compile Include="Assets\Scripts\EmotionManager.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -100,7 +102,6 @@
     <Compile Include="Assets\Scripts\TeethAnimationsPlayer.cs" />
     <Compile Include="Assets\Scripts\Turret.cs" />
     <Compile Include="Assets\Scripts\TurretBlueprint.cs" />
-    <Compile Include="Assets\Scripts\UnitySocketsTest.cs" />
     <Compile Include="Assets\Scripts\Wave.cs" />
     <Compile Include="Assets\Scripts\WaveSpawner.cs" />
     <Compile Include="Assets\Scripts\Waypoints.cs" />
