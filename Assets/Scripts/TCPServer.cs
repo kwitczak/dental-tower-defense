@@ -134,7 +134,14 @@ public class TCPServer : MonoBehaviour
                 }
                 Debug.Log("Formatted Data: " + formattedData);
 
-                Emotion = JsonUtility.FromJson<EmotionData>(formattedData);
+                try
+                {
+                    Emotion = JsonUtility.FromJson<EmotionData>(formattedData);
+                } catch (Exception _e)
+                {
+                    Debug.Log("Parsing error. Using last emotion.");
+                }
+                
                 Debug.Log("Data: " + Emotion);
                 System.Threading.Thread.Sleep(100);
             }
