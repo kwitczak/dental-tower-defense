@@ -4,14 +4,17 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour {
 
     public float startSpeed = 10f;
-    [HideInInspector]
+    public float beforeAffectionSpeed;
+    public float minEmotionEffectOnSpeed = 0.3f;
     public float speed;
 
-    private float health;
+    public float health;
     public float startHealth = 100;
+    public float beforeAffectionHealth;
     public int worth = 50;
 
     private bool isDead = false;
+    private bool emotionAffected = false;
 
     public GameObject deathEffect;
 
@@ -22,7 +25,14 @@ public class Enemy : MonoBehaviour {
     {
         speed = startSpeed;
         health = startHealth;
+        beforeAffectionHealth = startHealth;
+        beforeAffectionSpeed = startSpeed;
     }
+
+    void Update()
+    {
+        EmotionManager.applyAura(this);
+    } 
 
     public void TakeDamage (float amount)
     {
@@ -50,5 +60,58 @@ public class Enemy : MonoBehaviour {
 
         WaveSpawner.EnemiesAlive--;
         Destroy(gameObject);
+    }
+
+    public void applyStressorReaction(int certainty)
+    {
+        if (emotionAffected)
+        {
+            return;
+        }
+
+        float speedAmount = speed * (certainty / 100) + minEmotionEffectOnSpeed * speed;
+        speed = speed + speedAmount;
+        startSpeed = startSpeed + speedAmount;
+
+
+        float healthAmount = beforeAffectionHealth + beforeAffectionHealth * (certainty / 100);
+        health = health + healthAmount;
+        startHealth = startHealth + healthAmount;
+        emotionAffected = true;
+    }
+
+    public void cleanUpReaction()
+    {
+        speed = startSpeed;
+        startHealth = beforeAffectionHealth;
+        startSpeed = beforeAffectionSpeed;
+
+        if (health > beforeAffectionHealth)
+        {
+            health = beforeAffectionHealth;
+        }
+
+        if (speed > beforeAffectionSpeed)
+        {
+            speed = beforeAffectionSpeed;
+        }
+
+        emotionAffected = false;
+    }
+
+    public void applyCalmReaction(int certainty)
+    {
+        if (emotionAffected)
+        {
+            return;
+        }
+
+        float speedAmount = speed * (certainty / 100) + minEmotionEffectOnSpeed * speed;
+        speed = speed - speedAmount;
+        startSpeed = startSpeed - speedAmount;
+
+        float healthAmount = beforeAffectionHealth - beforeAffectionHealth * (certainty / 200);
+        startHealth = startHealth - healthAmount;
+        emotionAffected = true;
     }
 }

@@ -65,6 +65,5 @@ public class WaveSpawner : MonoBehaviour {
     void SpawnEnemy(GameObject enemy)
     {
         Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
-        EmotionManager.applyAura(enemy);
     }
 }
