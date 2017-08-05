@@ -26,7 +26,7 @@ public class EmotionManager : MonoBehaviour {
             return;
         }
 
-        if(lastEmotionData.emotion == Emotions.BORED.ToString())
+        if(lastEmotionData.emotionType == Emotions.BORED.ToString())
         {
             applyStressorReaction();
         } else
@@ -64,7 +64,7 @@ public class EmotionManager : MonoBehaviour {
 
     public static void applyAura(GameObject enemy)
     {
-        if (!isEmotionDataReady() || lastEmotionData.emotion == Emotions.FOCUSED.ToString())
+        if (!isEmotionDataReady() || lastEmotionData.emotionType == Emotions.FOCUSED.ToString())
         {
             return;
         }

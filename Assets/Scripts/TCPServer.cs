@@ -14,9 +14,11 @@ public class TCPServer : MonoBehaviour
     public GameObject EmotionPanelGO;
     public GameObject HeartBeatGO;
     public GameObject EmotionGO;
+    public GameObject CertaintyGO;
 
     private Text HeartBeatText;
     private Text EmotionText;
+    private Text CertaintyText;
 
     public static bool connectionEstablished = false;
     public static string data = null;
@@ -35,6 +37,7 @@ public class TCPServer : MonoBehaviour
     {
         HeartBeatText = HeartBeatGO.GetComponent<Text>();
         EmotionText = EmotionGO.GetComponent<Text>();
+        CertaintyText = CertaintyGO.GetComponent<Text>();
 
         Application.runInBackground = true;
         startServer();
@@ -46,7 +49,8 @@ public class TCPServer : MonoBehaviour
         {
             EmotionPanelGO.SetActive(true);
             HeartBeatText.text = "Tętno: " + Emotion.heartBeat;
-            EmotionText.text = "Emocja: " + Emotion.emotion;
+            EmotionText.text = "Emocja: " + Emotion.emotionType;
+            CertaintyText.text = "Pewność: " + Emotion.certainty + " %";
         }
     }
 
@@ -132,6 +136,8 @@ public class TCPServer : MonoBehaviour
                 {
                     formattedData = formattedData.Remove(0, 1);
                 }
+
+                formattedData = ExtractJSON(formattedData);
                 Debug.Log("Formatted Data: " + formattedData);
 
                 try
@@ -175,5 +181,13 @@ public class TCPServer : MonoBehaviour
         //Debug.Log("ASCII: " + Encoding.ASCII.GetString(bytes, 1, bytesRec));
         //Debug.Log("Unicode: " + Encoding.Unicode.GetString(bytes, 1, bytesRec));
         //Debug.Log("Default: " + System.Text.Encoding.Default.GetString(bytes, 1, bytesRec));
+    }
+
+    private string ExtractJSON(string s)
+    {
+        // You should check for errors in real-world code, omitted for brevity
+        int startIndex = s.IndexOf("{");
+        int endIndex = s.IndexOf("}") + 1;
+        return s.Substring(startIndex, endIndex - startIndex);
     }
 }
