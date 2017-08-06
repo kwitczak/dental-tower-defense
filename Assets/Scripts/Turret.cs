@@ -23,16 +23,26 @@ public class Turret : MonoBehaviour
 
     [Header("Unity Setup Fields")]
     public string enemyTag = "Enemy";
+    public string roadTag = "Road";
 
     public Transform partToRotate;
+    public Transform partToAnimate;
+    private Quaternion startingRotation;
     public float turnSpeed = 10f;
 
     public Transform firePoint;
+    private Animator shotAnimation;
 
     // Use this for initialization
     void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        if (partToAnimate != null)
+        {
+            shotAnimation = partToAnimate.GetComponent<Animator>();
+            startingRotation = partToAnimate.rotation;
+        }
+         
     }
 
     // Find closest enemy and target it
@@ -78,6 +88,8 @@ public class Turret : MonoBehaviour
                 }
                     
             }
+
+            toggleShootingAnimation(false);
             return;
         }
             
@@ -104,6 +116,7 @@ public class Turret : MonoBehaviour
 
     void LockOnTarget()
     {
+        toggleShootingAnimation(true);
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
@@ -148,5 +161,25 @@ public class Turret : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, range);
+    }
+
+    private void toggleShootingAnimation(bool activate)
+    {
+        if (shotAnimation != null)
+        {
+            shotAnimation.enabled = activate;
+
+            if (activate)
+            {
+                return;
+            }
+
+            // Go back to previous position slowly
+            Vector3 rotation = Quaternion.Lerp(partToAnimate.rotation,
+                startingRotation,
+                Time.deltaTime * turnSpeed).eulerAngles;
+
+            partToAnimate.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
+        }
     }
 }
