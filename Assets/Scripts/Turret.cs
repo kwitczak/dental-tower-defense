@@ -11,6 +11,7 @@ public class Turret : MonoBehaviour
     [Header("Use Bullets (default)")]
     public GameObject bulletPrefab;
     public float fireRate = 1f;
+    private float startFireRate;
     private float fireCountdown = 0f;
 
     [Header("Use Laser")]
@@ -33,9 +34,14 @@ public class Turret : MonoBehaviour
     public Transform firePoint;
     private Animator shotAnimation;
 
+    public GameObject emotionAura;
+    private float minEmotionEffectOnSpeed = 0.3f;
+    private bool emotionAffected = false;
+
     // Use this for initialization
     void Start()
     {
+        startFireRate = fireRate;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         if (partToAnimate != null)
         {
@@ -76,6 +82,9 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        EmotionManager.applyTurretAura(this);
+
         if (target == null)
         {
             if (useLaser)
@@ -181,5 +190,37 @@ public class Turret : MonoBehaviour
 
             partToAnimate.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
         }
+    }
+
+    public void applyStressorReaction(int certainty)
+    {
+        if (emotionAffected)
+        {
+            return;
+        }
+
+        float slowFireAmount = fireRate * (certainty / 50) + minEmotionEffectOnSpeed * fireRate;
+        fireRate = fireRate - slowFireAmount;
+
+        emotionAffected = true;
+    }
+
+    public void cleanUpReaction()
+    {
+        fireRate = startFireRate;
+        emotionAffected = false;
+    }
+
+    public void applyCalmReaction(int certainty)
+    {
+        if (emotionAffected)
+        {
+            return;
+        }
+
+        float slowFireAmount = fireRate * (certainty / 50) + minEmotionEffectOnSpeed * fireRate;
+        fireRate = fireRate + slowFireAmount;
+
+        emotionAffected = true;
     }
 }

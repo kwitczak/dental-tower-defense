@@ -5,10 +5,12 @@ public class GameManager : MonoBehaviour {
     public static bool gameIsOver;
     public GameObject gameOverUI;
     public GameObject completeLevelUI;
+    public GameObject introductionModal;
 
     void Start()
     {
         gameIsOver = false;
+        introductionModal.SetActive(true);
     }
 
 	// Update is called once per frame

@@ -53,12 +53,12 @@ public class EmotionManager : MonoBehaviour {
     // ON WORLD
     private void applyStressorReaction()
     {
-        toggleLights(true, stressColor, 0.5f, 50);
+        toggleLights(true, stressColor, 0.2f, 100);
     }
 
     private void applyCalmReaction()
     {
-        toggleLights(true, calmColor, 0.5f, 100);
+        toggleLights(true, calmColor, 0.2f, 200);
     }
 
     private void applyFocusReaction()
@@ -66,7 +66,7 @@ public class EmotionManager : MonoBehaviour {
         toggleLights(false, focusColor, 0f, 1);
     }
 
-    private void toggleLights(bool enable, Color lightsColor, float baseIntensity, float multiplayer)
+    private void toggleLights(bool enable, Color lightsColor, float baseIntensity, float multiplier)
     {
         foreach (Light light in lights)
         {
@@ -77,7 +77,7 @@ public class EmotionManager : MonoBehaviour {
                 light.intensity = baseIntensity;
             } else
             {
-                light.intensity = baseIntensity + (lastEmotionData.certainty / multiplayer);
+                light.intensity = baseIntensity + (lastEmotionData.certainty / multiplier);
             }
             
         }
@@ -113,6 +113,33 @@ public class EmotionManager : MonoBehaviour {
         }
     }
 
+    public static void applyTurretAura(Turret turret)
+    {
+        GameObject aura = turret.emotionAura;
+        if (!isEmotionDataReady())
+        {
+            aura.SetActive(false);
+            return;
+        }
+
+        aura.SetActive(true);
+        Light auraLight = aura.GetComponent<Light>();
+        auraLight.color = currentStateColor;
+
+        if (isBored())
+        {
+            turret.applyStressorReaction(lastEmotionData.certainty);
+        }
+        else if (isStressed())
+        {
+            turret.applyCalmReaction(lastEmotionData.certainty);
+        }
+        else
+        {
+            aura.gameObject.SetActive(false);
+            turret.cleanUpReaction();
+        }
+    }
 
     public static bool isEmotionDataReady()
     {
