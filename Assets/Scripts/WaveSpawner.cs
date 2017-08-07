@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class WaveSpawner : MonoBehaviour {
 
     public static int EnemiesAlive = 0;
+    public static bool gameStarted = false;
     public Wave[] waves;
 
     public Transform spawnPoint;
@@ -23,6 +24,11 @@ public class WaveSpawner : MonoBehaviour {
 
     void Update ()
     {
+        if (!gameStarted)
+        {
+            return;
+        }
+
         if (EnemiesAlive > 0)
         {
             return;
