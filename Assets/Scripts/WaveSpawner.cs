@@ -16,6 +16,7 @@ public class WaveSpawner : MonoBehaviour {
     private int waveIndex = 0;
 
     public GameManager gameManager;
+    public EmotionManager emotionManager;
 
     private void Start()
     {
@@ -36,12 +37,15 @@ public class WaveSpawner : MonoBehaviour {
 
         if (waveIndex == waves.Length)
         {
+            Debug.Log("MEH?");
             gameManager.WinLevel();
             this.enabled = false;
         }
 
         if (countdown <= 0f)
         {
+            Debug.Log("Checking affective reaction...");
+            emotionManager.runAffectiveReaction(waveIndex, (waveIndex + 1) == waves.Length);
             StartCoroutine(SpawnWave());
             countdown = timeBetweenWaves;
             return;
@@ -65,11 +69,13 @@ public class WaveSpawner : MonoBehaviour {
             SpawnEnemy(wave.enemy);
             yield return new WaitForSeconds(1f/wave.rate);
         }
+
         waveIndex++;
     }
 
     void SpawnEnemy(GameObject enemy)
     {
         Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
+        EmotionManager.applyAura(enemy.GetComponent<Enemy>());
     }
 }

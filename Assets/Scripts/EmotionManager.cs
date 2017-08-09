@@ -5,26 +5,38 @@ using UnityEngine;
 public class EmotionManager : MonoBehaviour {
 
     public static EmotionData lastEmotionData;
-    public Light[] lights;
-    Color stressColor = Color.red;
-    Color calmColor = Color.cyan;
-    Color focusColor = Color.white;
+    public static EmotionData lastReactionEmotion;
 
-    // In seconds
+    public Light[] lights;
+    static Color stressColor = Color.red;
+    static Color calmColor = Color.cyan;
+    static Color focusColor = Color.white;
+
+    public static int emotionMinimumWave = 1;
+    public static float affectiveReactionChance = 0.4f;
     public static float emotionCooldown = 10;
     public static float emotionLength = 6;
     public static float nextEmotionTime;
 
     static Color currentStateColor;
+    public static Emotions currentReaction;
+    public static bool affectiveReactionTriggered = false;
 
 	// Use this for initialization
 	void Start () {
         currentStateColor = focusColor;
-        setNextCooldown();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+
+    // Affective reaction should run for the wave time, at least once per game.
+    public void runAffectiveReaction(int waveIndex, bool lastWave)
+    {
+        if (waveIndex < emotionMinimumWave)
+        {
+            Debug.Log("Reaction cannot occurr that early");
+            return;
+        }
+
         Debug.Log("Emotion update");
         lastEmotionData = TCPServer.Emotion;
 
@@ -34,35 +46,51 @@ public class EmotionManager : MonoBehaviour {
             return;
         }
 
+        float chance = Random.Range(0.0f, 1.0f);
+        Debug.Log("Chance of reaction: " + chance);
+        if (chance > affectiveReactionChance && !lastWave)
+        {
+            applyFocusReaction();
+            affectiveReactionTriggered = false;
+            return;
+        }
+
+        Debug.Log("Running affective reaction!");
+        affectiveReactionTriggered = true;
+
+        lastReactionEmotion = lastEmotionData;
         if (isBored())
         {
             applyStressorReaction();
+  
         }
         else if (isFocused())
         {
             applyFocusReaction();
+     
         }
         else if (isStressed())
         {
             applyCalmReaction();
         }
-
     }
-
 
     // ON WORLD
     private void applyStressorReaction()
     {
+        currentReaction = Emotions.BORED;
         toggleLights(true, stressColor, 0.2f, 100);
     }
 
     private void applyCalmReaction()
     {
+        currentReaction = Emotions.STRESSED;
         toggleLights(true, calmColor, 0.2f, 200);
     }
 
     private void applyFocusReaction()
     {
+        currentReaction = Emotions.FOCUSED;
         toggleLights(false, focusColor, 0f, 1);
     }
 
@@ -89,7 +117,7 @@ public class EmotionManager : MonoBehaviour {
     public static void applyAura(Enemy enemy)
     {
         Transform aura = enemy.transform.Find("EmotionAura");
-        if (!isEmotionDataReady())
+        if (!affectiveReactionTriggered)
         {
             aura.gameObject.SetActive(false);
             return;
@@ -99,24 +127,25 @@ public class EmotionManager : MonoBehaviour {
         Light auraLight = aura.GetComponent<Light>();
         auraLight.color = currentStateColor;
 
-        if (isBored())
+        switch (currentReaction)
         {
-            enemy.applyStressorReaction(lastEmotionData.certainty);
-        }
-        else if (isStressed())
-        {
-            enemy.applyCalmReaction(lastEmotionData.certainty);
-        } else
-        {
-            aura.gameObject.SetActive(false);
-            enemy.cleanUpReaction();
+            case Emotions.BORED:
+                enemy.applyStressorReaction(lastReactionEmotion.certainty);
+                break;
+            case Emotions.FOCUSED:
+                aura.gameObject.SetActive(false);
+                enemy.cleanUpReaction();
+                break;
+            case Emotions.STRESSED:
+                enemy.applyCalmReaction(lastReactionEmotion.certainty);
+                break;
         }
     }
 
     public static void applyTurretAura(Turret turret)
     {
         GameObject aura = turret.emotionAura;
-        if (!isEmotionDataReady())
+        if (!affectiveReactionTriggered)
         {
             aura.SetActive(false);
             return;
@@ -126,18 +155,18 @@ public class EmotionManager : MonoBehaviour {
         Light auraLight = aura.GetComponent<Light>();
         auraLight.color = currentStateColor;
 
-        if (isBored())
+        switch(currentReaction)
         {
-            turret.applyStressorReaction(lastEmotionData.certainty);
-        }
-        else if (isStressed())
-        {
-            turret.applyCalmReaction(lastEmotionData.certainty);
-        }
-        else
-        {
-            aura.gameObject.SetActive(false);
-            turret.cleanUpReaction();
+            case Emotions.BORED:
+                turret.applyStressorReaction(lastReactionEmotion.certainty);
+                break;
+            case Emotions.FOCUSED:
+                aura.gameObject.SetActive(false);
+                turret.cleanUpReaction();
+                break;
+            case Emotions.STRESSED:
+                turret.applyCalmReaction(lastReactionEmotion.certainty);
+                break;
         }
     }
 
@@ -149,11 +178,6 @@ public class EmotionManager : MonoBehaviour {
     public static bool isEmotionCooldownReady()
     {
         return nextEmotionTime <= Time.time;
-    }
-
-    public static void setNextCooldown()
-    {
-        nextEmotionTime = Time.time + emotionCooldown;
     }
 
     public static bool isBored()

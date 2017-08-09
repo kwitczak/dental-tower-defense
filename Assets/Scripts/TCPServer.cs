@@ -27,14 +27,25 @@ public class TCPServer : MonoBehaviour
     System.Threading.Thread SocketThread;
     public static EmotionData Emotion = null;
 
+
+    public static TCPServer instance;
     void Awake()
     {
-        DontDestroyOnLoad(transform.gameObject);
+        if (!instance)
+        {
+            instance = this as TCPServer;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            DestroyObject(gameObject);
+        }
     }
 
     // Use this for initialization
     void Start()
     {
+        DontDestroyOnLoad(transform.gameObject);
         HeartBeatText = HeartBeatGO.GetComponent<Text>();
         EmotionText = EmotionGO.GetComponent<Text>();
         CertaintyText = CertaintyGO.GetComponent<Text>();
@@ -130,7 +141,7 @@ public class TCPServer : MonoBehaviour
                     System.Threading.Thread.Sleep(100);
                 }
 
-                Debug.Log("Original Data: " + data);
+                //Debug.Log("Original Data: " + data);
                 String formattedData = Regex.Replace(data, "[^0-9a-zA-Z{}\",:]+", "");
                 if (formattedData.Substring(0, 1).Equals("\""))
                 {
@@ -138,7 +149,7 @@ public class TCPServer : MonoBehaviour
                 }
 
                 formattedData = ExtractJSON(formattedData);
-                Debug.Log("Formatted Data: " + formattedData);
+                //Debug.Log("Formatted Data: " + formattedData);
 
                 try
                 {
@@ -148,7 +159,7 @@ public class TCPServer : MonoBehaviour
                     Debug.Log("Parsing error. Using last emotion.");
                 }
                 
-                Debug.Log("Data: " + Emotion);
+                //Debug.Log("Data: " + Emotion);
                 System.Threading.Thread.Sleep(100);
             }
         }

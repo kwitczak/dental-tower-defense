@@ -29,11 +29,6 @@ public class Enemy : MonoBehaviour {
         beforeAffectionSpeed = startSpeed;
     }
 
-    void Update()
-    {
-        EmotionManager.applyAura(this);
-    } 
-
     public void TakeDamage (float amount)
     {
         health -= amount;
