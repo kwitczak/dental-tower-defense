@@ -1,10 +1,12 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WaveSpawner : MonoBehaviour {
 
     public static int EnemiesAlive = 0;
+    public static int WavesLeft = 0;
     public static bool gameStarted = false;
     public Wave[] waves;
 
@@ -30,14 +32,13 @@ public class WaveSpawner : MonoBehaviour {
             return;
         }
 
-        if (EnemiesAlive > 0)
+        if (EnemiesAlive > 0 || WavesLeft > 0)
         {
             return;
         }
 
         if (waveIndex == waves.Length)
         {
-            Debug.Log("MEH?");
             gameManager.WinLevel();
             this.enabled = false;
         }
@@ -46,7 +47,15 @@ public class WaveSpawner : MonoBehaviour {
         {
             Debug.Log("Checking affective reaction...");
             emotionManager.runAffectiveReaction(waveIndex, (waveIndex + 1) == waves.Length);
-            StartCoroutine(SpawnWave());
+
+            List<Wave> nestedWaves = flattenCurrentWave(waves[waveIndex]);
+            foreach (Wave wave in nestedWaves)
+            {
+                StartCoroutine(SpawnWave(wave, true));
+            }
+
+            waveIndex++;
+            PlayerStats.Rounds++;
             countdown = timeBetweenWaves;
             return;
         }
@@ -57,20 +66,48 @@ public class WaveSpawner : MonoBehaviour {
         waveCountdownText.text = string.Format("{0:00.00}", countdown);
     }
 
-    IEnumerator SpawnWave()
+    List<Wave> flattenCurrentWave(Wave wave)
     {
-        PlayerStats.Rounds++;
+        List<Wave> waves = new List<Wave>();
 
-        Wave wave = waves[waveIndex];
-        EnemiesAlive = wave.count;
+        do
+        {
+            EnemiesAlive += wave.count;
+            if (wave.bossEnemy != null)
+            {
+                EnemiesAlive++;
+            }
 
+            WavesLeft++;
+            waves.Add(wave);
+            if (wave.nestedWave.Length > 0)
+            {
+                wave = wave.nestedWave[0];
+            } else
+            {
+                break;
+            }
+            
+        } while (wave != null);
+
+        return waves;
+    }
+
+    IEnumerator SpawnWave(Wave wave, bool incrementWave)
+    {
+        yield return new WaitForSeconds(wave.waitBeforeStart);
         for (int i = 0; i < wave.count; i++)
         {
             SpawnEnemy(wave.enemy);
             yield return new WaitForSeconds(1f/wave.rate);
         }
 
-        waveIndex++;
+        if (wave.bossEnemy != null)
+        {
+            SpawnEnemy(wave.bossEnemy);
+        }
+
+        WavesLeft--;
     }
 
     void SpawnEnemy(GameObject enemy)

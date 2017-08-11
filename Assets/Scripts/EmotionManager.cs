@@ -33,7 +33,7 @@ public class EmotionManager : MonoBehaviour {
     {
         if (waveIndex < emotionMinimumWave)
         {
-            Debug.Log("Reaction cannot occurr that early");
+            Debug.Log("Reaction cannot occur that early");
             return;
         }
 
