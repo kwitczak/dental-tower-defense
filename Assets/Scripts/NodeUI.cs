@@ -7,6 +7,10 @@ public class NodeUI : MonoBehaviour {
     private Node target;
 
     public Text upgradeCost;
+    public Text dmgText;
+    public Text dmgBonusText;
+    public Text spdText;
+    public Text spdTextBonus;
     public Button upgradeButton;
 
     public Text sellAmount;
@@ -16,8 +20,13 @@ public class NodeUI : MonoBehaviour {
         this.target = target;
 
         transform.position = target.GetBuildPosition();
-        
-        if(!target.isUpgraded)
+
+        // Stats display
+        Turret turret = target.turret.GetComponent<Turret>();
+        dmgText.text = "OBR: " + turret.bulletDamage.ToString();
+        spdText.text = "SZYB: " + turret.fireRate.ToString();
+
+        if (turret.towerLevel < 20)
         {
             upgradeCost.text = target.turretBlueprint.upgradeCost + " PLN";
             upgradeButton.interactable = true;
@@ -27,7 +36,7 @@ public class NodeUI : MonoBehaviour {
             upgradeButton.interactable = false;
         }
 
-        sellAmount.text = target.turretBlueprint.GetSellAmount() + " PLN";
+        //sellAmount.text = target.turretBlueprint.GetSellAmount() + " PLN";
         ui.SetActive(true);
     }
 
@@ -46,6 +55,20 @@ public class NodeUI : MonoBehaviour {
     {
         target.SellTurret();
         BuildManager.instance.DeselectNode();
+    }
+
+    public void showUpgradeStats()
+    {
+        Turret turret = target.turret.GetComponent<Turret>();
+        // Stats display
+        dmgBonusText.text = "+ " + turret.nextDamageUpdate().ToString();
+        spdTextBonus.text = "+ " + turret.nextSpeedUpdate().ToString();
+    }
+
+    public void hideUpgradeStats()
+    {
+        dmgBonusText.text = "";
+        spdTextBonus.text = "";
     }
 
 }

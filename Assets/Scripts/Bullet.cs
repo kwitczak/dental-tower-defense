@@ -4,15 +4,17 @@ public class Bullet : MonoBehaviour {
 
     // Target should come from Turret
     private Transform target;
+    private Turret shooter;
+
     public float speed = 70f;
-    public int damage = 50;
 
     public float explosionRadius = 0f;
     public GameObject impactEffect;
     
-    public void Seek (Transform _target)
+    public void Seek (Transform _target, Turret _shooter)
     {
         target = _target;
+        shooter = _shooter;
     }
 
 	// Update is called once per frame
@@ -77,7 +79,7 @@ public class Bullet : MonoBehaviour {
 
         if(e != null)
         {
-            e.TakeDamage(damage);
+            e.TakeDamage(shooter.bulletDamage);
         }
     }
 

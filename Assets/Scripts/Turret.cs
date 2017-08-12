@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class Turret : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class Turret : MonoBehaviour
 
     [Header("Use Bullets (default)")]
     public GameObject bulletPrefab;
+    public int bulletDamage = 5;
     public float fireRate = 1f;
     private float startFireRate;
     private float fireCountdown = 0f;
@@ -38,6 +41,10 @@ public class Turret : MonoBehaviour
     private float minEmotionEffectOnSpeed = 0.3f;
     private bool emotionAffected = false;
 
+    public int towerLevel = 1;
+    public Text towerLevelText;
+    public Node node;
+
     // Use this for initialization
     void Start()
     {
@@ -48,7 +55,7 @@ public class Turret : MonoBehaviour
             shotAnimation = partToAnimate.GetComponent<Animator>();
             startingRotation = partToAnimate.rotation;
         }
-         
+
     }
 
     // Find closest enemy and target it
@@ -95,13 +102,13 @@ public class Turret : MonoBehaviour
                     impactEffect.Stop();
                     impactLight.enabled = false;
                 }
-                    
+
             }
 
             toggleShootingAnimation(false);
             return;
         }
-            
+
 
         LockOnTarget();
 
@@ -143,13 +150,13 @@ public class Turret : MonoBehaviour
             impactEffect.Play();
             impactLight.enabled = true;
         }
-            
+
 
         lineRenderer.SetPosition(0, firePoint.position);
         lineRenderer.SetPosition(1, target.position);
 
         Vector3 dir = firePoint.position - target.position;
-        
+
         // Normalized vector -> reduced to 1
         impactEffect.transform.position = target.position + dir.normalized;
         // Point towards the turret
@@ -162,7 +169,7 @@ public class Turret : MonoBehaviour
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
         if (bullet != null)
-            bullet.Seek(target);
+            bullet.Seek(target, this);
     }
 
     // Draw turret range on selection
@@ -189,6 +196,7 @@ public class Turret : MonoBehaviour
                 Time.deltaTime * turnSpeed).eulerAngles;
 
             partToAnimate.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
+            partToAnimate.localScale = new Vector3(1, 1, 1);
         }
     }
 
@@ -222,5 +230,28 @@ public class Turret : MonoBehaviour
         fireRate = fireRate + slowFireAmount;
 
         emotionAffected = true;
+    }
+
+    public int nextDamageUpdate()
+    {
+        return Convert.ToInt32(Math.Round(bulletDamage * 0.3));
+    }
+
+    public int nextSpeedUpdate()
+    {
+        return Convert.ToInt32(Math.Round(fireRate * 0.3));
+    }
+
+    public void simpleUpgrade()
+    {
+        towerLevel++;
+        towerLevelText.text = new String('I', towerLevel);
+        bulletDamage += nextDamageUpdate();
+        fireRate += nextSpeedUpdate();
+    }
+
+    void OnMouseDown()
+    {
+        node.showStats();
     }
 }
