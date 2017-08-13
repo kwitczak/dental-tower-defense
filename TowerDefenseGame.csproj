@@ -106,6 +106,7 @@
     <Compile Include="Assets\Scripts\Wave.cs" />
     <Compile Include="Assets\Scripts\WaveSpawner.cs" />
     <Compile Include="Assets\Scripts\Waypoints.cs" />
+    <Compile Include="Assets\ShopItem.cs" />
     <Compile Include="Assets\SoundManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
