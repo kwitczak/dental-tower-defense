@@ -21,12 +21,15 @@ public class Enemy : MonoBehaviour {
     [Header("Unity Stuff")]
     public Image healthBar;
 
+    private AudioSource deathSound;
+
     void Start ()
     {
         speed = startSpeed;
         health = startHealth;
         beforeAffectionHealth = startHealth;
         beforeAffectionSpeed = startSpeed;
+        deathSound = SoundManager.getInstance().enemyDeathSound.GetComponent<AudioSource>();
     }
 
     public void TakeDamage (float amount)
@@ -52,6 +55,7 @@ public class Enemy : MonoBehaviour {
 
         GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(effect, 5f);
+        deathSound.Play();
 
         WaveSpawner.EnemiesAlive--;
         Destroy(gameObject);

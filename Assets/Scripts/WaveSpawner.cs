@@ -99,6 +99,7 @@ public class WaveSpawner : MonoBehaviour {
         for (int i = 0; i < wave.count; i++)
         {
             SpawnEnemy(wave.enemy);
+            SoundManager.getInstance().spawn.GetComponent<AudioSource>().Play();
             yield return new WaitForSeconds(1f/wave.rate);
         }
 

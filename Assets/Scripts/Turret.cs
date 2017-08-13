@@ -45,9 +45,12 @@ public class Turret : MonoBehaviour
     public Text towerLevelText;
     public Node node;
 
+    private AudioSource attackSound;
+
     // Use this for initialization
     void Start()
     {
+        attackSound = GetComponent<AudioSource>();
         startFireRate = fireRate;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         if (partToAnimate != null)
@@ -133,6 +136,7 @@ public class Turret : MonoBehaviour
     void LockOnTarget()
     {
         toggleShootingAnimation(true);
+        
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
@@ -167,6 +171,10 @@ public class Turret : MonoBehaviour
     {
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
+        if (!attackSound.isPlaying)
+        {
+            attackSound.Play();
+        }
 
         if (bullet != null)
             bullet.Seek(target, this);

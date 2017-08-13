@@ -9,6 +9,8 @@ public class EnemyMovement : MonoBehaviour {
     private int wavepointIndex = 0;
     private Enemy enemy;
 
+    public AudioSource boomSound;
+
     public bool jumps = true;
 
     void Start()
@@ -17,6 +19,7 @@ public class EnemyMovement : MonoBehaviour {
         target = Waypoints.points[0];
         rb = GetComponent<Rigidbody>();
         InvokeRepeating("Jump", 1f, 1f);
+        boomSound = SoundManager.getInstance().boomSound.GetComponent<AudioSource>();
     }
 
     void Jump()
@@ -59,6 +62,7 @@ public class EnemyMovement : MonoBehaviour {
     void EndPath()
     {
         PlayerStats.Lives--;
+        boomSound.Play();
 
         GameObject teethToDestroy = GameObject.Find("Teeth" + PlayerStats.Lives);
         GameObject effect = Instantiate(BuildManager.instance.teethDestroyEffect, teethToDestroy.transform.position, Quaternion.identity);

@@ -53,4 +53,9 @@ public class MainMenu : MonoBehaviour {
         Debug.Log("Exciting...");
         Application.Quit();
     } 
+
+    public void playHoverSound()
+    {
+        SoundManager.getInstance().menuHover.GetComponent<AudioSource>().Play();
+    }
 }

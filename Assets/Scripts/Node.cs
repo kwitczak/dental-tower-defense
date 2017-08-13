@@ -22,12 +22,14 @@ public class Node : MonoBehaviour {
 
 
     BuildManager buildManager;
+    private AudioSource buySound;
 
     void Start()
     {
         rend = GetComponent<Renderer>();
         startColor = rend.material.color;
         buildManager = BuildManager.instance;
+        buySound = GetComponent<AudioSource>();
     }
 
     public Vector3 GetBuildPosition ()
@@ -66,6 +68,7 @@ public class Node : MonoBehaviour {
             return;
         }
 
+        buySound.Play();
         PlayerStats.Money -= blueprint.cost;
 
         GameObject new_turret = (GameObject)Instantiate(blueprint.prefab, GetBuildPosition(), Quaternion.identity);
