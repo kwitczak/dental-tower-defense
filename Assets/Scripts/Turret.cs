@@ -268,7 +268,6 @@ public class Turret : MonoBehaviour
 
     public int damageToEnemy(String _enemyType)
     {
-        Debug.Log("enemy Tag: " + _enemyType);
         if (enemyType.Equals(_enemyType))
         {
             return bulletDamage;
