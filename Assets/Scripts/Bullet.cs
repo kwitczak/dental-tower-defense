@@ -79,7 +79,7 @@ public class Bullet : MonoBehaviour {
 
         if(e != null)
         {
-            e.TakeDamage(shooter.bulletDamage);
+            e.TakeDamage(shooter.damageToEnemy(enemy.Find("EnemyType").tag));
         }
     }
 

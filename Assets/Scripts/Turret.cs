@@ -8,11 +8,13 @@ public class Turret : MonoBehaviour
     private Enemy targetEnemy;
 
     [Header("General")]
+    public String enemyType;
     public float range = 15f;
 
     [Header("Use Bullets (default)")]
     public GameObject bulletPrefab;
     public int bulletDamage = 5;
+    private int baseDamage;
     public float fireRate = 1f;
     private float startFireRate;
     private float fireCountdown = 0f;
@@ -51,6 +53,7 @@ public class Turret : MonoBehaviour
     void Start()
     {
         attackSound = GetComponent<AudioSource>();
+        baseDamage = bulletDamage;
         startFireRate = fireRate;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         if (partToAnimate != null)
@@ -242,7 +245,7 @@ public class Turret : MonoBehaviour
 
     public int nextDamageUpdate()
     {
-        return Convert.ToInt32(Math.Round(bulletDamage * 0.3));
+        return Convert.ToInt32(Math.Round(baseDamage * 0.3));
     }
 
     public int nextSpeedUpdate()
@@ -261,5 +264,18 @@ public class Turret : MonoBehaviour
     void OnMouseDown()
     {
         node.showStats();
+    }
+
+    public int damageToEnemy(String _enemyType)
+    {
+        Debug.Log("enemy Tag: " + _enemyType);
+        if (enemyType.Equals(_enemyType))
+        {
+            return bulletDamage;
+        } else
+        {
+            return Convert.ToInt32(Math.Round(bulletDamage * 0.2));
+        }
+        
     }
 }
