@@ -13,6 +13,7 @@ public class WaveSpawner : MonoBehaviour {
     public Transform spawnPoint;
     public float timeBetweenWaves;
     public Text waveCountdownText;
+    public Text waveCounterText;
 
     private float countdown;
     private int waveIndex = 0;
@@ -23,6 +24,7 @@ public class WaveSpawner : MonoBehaviour {
     private void Start()
     {
         countdown = timeBetweenWaves;
+        updateWavesText();
     }
 
     void Update ()
@@ -55,6 +57,7 @@ public class WaveSpawner : MonoBehaviour {
             }
 
             waveIndex++;
+            updateWavesText();
             PlayerStats.Rounds++;
             countdown = timeBetweenWaves;
             return;
@@ -115,5 +118,10 @@ public class WaveSpawner : MonoBehaviour {
     {
         Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
         EmotionManager.applyAura(enemy.GetComponent<Enemy>());
+    }
+
+    void updateWavesText()
+    {
+        waveCounterText.text = waveIndex + " / " + waves.Length;
     }
 }
