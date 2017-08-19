@@ -9,6 +9,7 @@ public class Turret : MonoBehaviour
 
     [Header("General")]
     public String enemyType;
+    public float typeDamageReduce = 0.4f;
     public float range = 15f;
 
     [Header("Use Bullets (default)")]
@@ -273,7 +274,7 @@ public class Turret : MonoBehaviour
             return bulletDamage;
         } else
         {
-            return Convert.ToInt32(Math.Round(bulletDamage * 0.2));
+            return Convert.ToInt32(Math.Round(bulletDamage * typeDamageReduce));
         }
         
     }
