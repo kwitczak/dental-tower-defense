@@ -9,6 +9,7 @@ public class Turret : MonoBehaviour
 
     [Header("General")]
     public String enemyType;
+    public String upgradeText;
     public float typeDamageReduce = 0.4f;
     public float range = 15f;
 

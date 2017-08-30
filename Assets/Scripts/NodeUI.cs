@@ -6,6 +6,7 @@ public class NodeUI : MonoBehaviour {
     public GameObject ui;
     private Node target;
 
+    public Text upgradeText;
     public Text upgradeCost;
     public Text dmgText;
     public Text dmgBonusText;
@@ -25,6 +26,7 @@ public class NodeUI : MonoBehaviour {
         Turret turret = target.turret.GetComponent<Turret>();
         dmgText.text = "OBR: " + turret.bulletDamage.ToString();
         spdText.text = "SZYB: " + turret.fireRate.ToString();
+        upgradeText.text = turret.upgradeText;
 
         if (turret.towerLevel < 20)
         {

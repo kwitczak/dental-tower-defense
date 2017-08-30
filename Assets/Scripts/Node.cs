@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 
@@ -95,13 +96,20 @@ public class Node : MonoBehaviour {
         PlayerStats.Money -= turretBlueprint.upgradeCost;
 
         // Remove old turret
-        //Destroy(turret);
+        if(turret.GetComponent<Turret>().towerLevel == 3)
+        {
+            Destroy(turret);
 
-        // Set new turret
-        //GameObject new_turret = (GameObject)Instantiate(turretBlueprint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
-        //turret = new_turret;
-  
-        turret.GetComponent<Turret>().simpleUpgrade();
+            // Set new turret
+            GameObject new_turret = (GameObject)Instantiate(turretBlueprint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
+            Turret turretComponent = new_turret.GetComponent<Turret>();
+            turretComponent.towerLevel = 4;
+            turretComponent.towerLevelText.text = new String('I', 4);
+            turret = new_turret;
+        } else
+        {
+            turret.GetComponent<Turret>().simpleUpgrade();
+        }
 
         GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 5f);
