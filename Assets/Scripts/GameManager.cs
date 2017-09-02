@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -40,5 +41,25 @@ public class GameManager : MonoBehaviour {
     {
         gameIsOver = true;
         completeLevelUI.SetActive(true);
+        Image filledStar = getStar("Star");
+        Image starTwo = getStar("StarTwo");
+        Image starThree = getStar("StarThree");
+
+        if (PlayerStats.Lives == 32)
+        {
+            starThree.sprite = filledStar.sprite;
+        }
+
+        if (PlayerStats.Lives > 20)
+        {
+            starTwo.sprite = filledStar.sprite;
+        }
+
+
+    }
+
+    private Image getStar(string starName)
+    {
+        return completeLevelUI.transform.Find(starName).GetComponent<Image>();
     }
 }

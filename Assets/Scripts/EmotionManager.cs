@@ -39,7 +39,11 @@ public class EmotionManager : MonoBehaviour {
 
         Debug.Log("Emotion update");
         lastEmotionData = TCPServer.Emotion;
-
+        //lastEmotionData = new EmotionData();
+        //lastEmotionData.heartBeat = 75;
+        //lastEmotionData.emotionType = Emotions.STRESSED.ToString();
+        //lastEmotionData.certainty = 82;
+    
         if (lastEmotionData == null)
         {
             Debug.Log("No emotion data yet. Returning.");
