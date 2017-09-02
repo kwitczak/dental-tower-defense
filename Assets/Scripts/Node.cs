@@ -104,6 +104,7 @@ public class Node : MonoBehaviour {
             GameObject new_turret = (GameObject)Instantiate(turretBlueprint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
             Turret turretComponent = new_turret.GetComponent<Turret>();
             turretComponent.towerLevel = 4;
+            turretComponent.node = this;
             turretComponent.towerLevelText.text = new String('I', 4);
             turret = new_turret;
         } else
