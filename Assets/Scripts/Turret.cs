@@ -220,7 +220,7 @@ public class Turret : MonoBehaviour
             return;
         }
 
-        float slowFireAmount = fireRate * (certainty / 50) + minEmotionEffectOnSpeed * fireRate;
+        float slowFireAmount = fireRate * (certainty / 500) + minEmotionEffectOnSpeed * fireRate;
         fireRate = fireRate - slowFireAmount;
 
         emotionAffected = true;
@@ -228,6 +228,11 @@ public class Turret : MonoBehaviour
 
     public void cleanUpReaction()
     {
+        if (!emotionAffected)
+        {
+            return;
+        }
+
         fireRate = startFireRate;
         emotionAffected = false;
     }
@@ -239,7 +244,7 @@ public class Turret : MonoBehaviour
             return;
         }
 
-        float slowFireAmount = fireRate * (certainty / 50) + minEmotionEffectOnSpeed * fireRate;
+        float slowFireAmount = fireRate * (certainty / 500) + minEmotionEffectOnSpeed * fireRate;
         fireRate = fireRate + slowFireAmount;
 
         emotionAffected = true;

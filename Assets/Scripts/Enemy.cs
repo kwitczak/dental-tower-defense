@@ -82,6 +82,11 @@ public class Enemy : MonoBehaviour {
 
     public void cleanUpReaction()
     {
+        if (!emotionAffected)
+        {
+            return;
+        }
+
         speed = startSpeed;
         startHealth = beforeAffectionHealth;
         startSpeed = beforeAffectionSpeed;

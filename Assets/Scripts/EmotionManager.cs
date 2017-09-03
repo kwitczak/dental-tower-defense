@@ -13,7 +13,7 @@ public class EmotionManager : MonoBehaviour {
     static Color focusColor = Color.white;
 
     public static int emotionMinimumWave = 1;
-    public static float affectiveReactionChance = 0.4f;
+    public static float affectiveReactionChance = 0.6f;
     public static float emotionCooldown = 10;
     public static float emotionLength = 6;
     public static float nextEmotionTime;
@@ -25,6 +25,7 @@ public class EmotionManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         currentStateColor = focusColor;
+        affectiveReactionTriggered = false;
     }
 
 
@@ -54,6 +55,7 @@ public class EmotionManager : MonoBehaviour {
         Debug.Log("Chance of reaction: " + chance);
         if (chance > affectiveReactionChance && !lastWave)
         {
+            Debug.Log("Chance above: " + affectiveReactionChance + ", applying FOCUS...");
             applyFocusReaction();
             affectiveReactionTriggered = false;
             return;
@@ -65,16 +67,19 @@ public class EmotionManager : MonoBehaviour {
         lastReactionEmotion = lastEmotionData;
         if (isBored())
         {
+            Debug.Log("Applying STRESS...");
             applyStressorReaction();
   
         }
         else if (isFocused())
         {
+            Debug.Log("Applying FOCUS...");
             applyFocusReaction();
      
         }
         else if (isStressed())
         {
+            Debug.Log("Applying CALM...");
             applyCalmReaction();
         }
     }
@@ -152,6 +157,7 @@ public class EmotionManager : MonoBehaviour {
         if (!affectiveReactionTriggered)
         {
             aura.SetActive(false);
+            turret.cleanUpReaction();
             return;
         }
 

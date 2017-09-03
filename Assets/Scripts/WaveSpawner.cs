@@ -43,7 +43,6 @@ public class WaveSpawner : MonoBehaviour {
 
         if (waveIndex == waves.Length)
         {
-            Debug.Log("third");
             gameManager.WinLevel();
             this.enabled = false;
         }
