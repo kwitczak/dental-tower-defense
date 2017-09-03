@@ -30,6 +30,11 @@ public class EnemyMovement : MonoBehaviour {
 
     void Update()
     {
+        if (GameManager.gameIsOver)
+        {
+            return;
+        }
+
         Vector3 dir = new Vector3(
             target.position.x - transform.position.x,
             target.position.y - transform.position.y,

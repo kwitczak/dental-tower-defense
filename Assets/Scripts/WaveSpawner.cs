@@ -116,8 +116,8 @@ public class WaveSpawner : MonoBehaviour {
 
     void SpawnEnemy(GameObject enemy)
     {
-        Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
-        EmotionManager.applyAura(enemy.GetComponent<Enemy>());
+        GameObject newEnemy = Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
+        EmotionManager.applyAura(newEnemy.GetComponent<Enemy>());
     }
 
     void updateWavesText()
