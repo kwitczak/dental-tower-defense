@@ -23,7 +23,9 @@ public class WaveSpawner : MonoBehaviour {
 
     private void Start()
     {
-        countdown = timeBetweenWaves;
+        countdown = 10;
+        EnemiesAlive = 0;
+        WavesLeft = 0;
         updateWavesText();
     }
 
@@ -41,6 +43,7 @@ public class WaveSpawner : MonoBehaviour {
 
         if (waveIndex == waves.Length)
         {
+            Debug.Log("third");
             gameManager.WinLevel();
             this.enabled = false;
         }

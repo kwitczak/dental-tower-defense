@@ -15,4 +15,9 @@ public class TurretBlueprint {
     {
         return cost / 2;
     }
+
+    public int nextUpgradeCost(Turret turret)
+    {
+        return upgradeCost + (upgradeCost * turret.towerLevel)/2;
+    }
 }

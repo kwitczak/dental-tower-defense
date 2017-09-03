@@ -6,9 +6,10 @@ public class RotatingElement : MonoBehaviour {
 
     public float rotationSpeedY;
     public float rotationSpeedX;
+    public float rotationSpeedZ;
 
     // Update is called once per frame
     void Update () {
-        transform.Rotate(rotationSpeedX * Time.deltaTime, rotationSpeedY * Time.deltaTime, 0);
+        transform.Rotate(rotationSpeedX * Time.deltaTime, rotationSpeedY * Time.deltaTime, rotationSpeedZ * Time.deltaTime);
     }
 }

@@ -39,7 +39,7 @@ public class NodeUI : MonoBehaviour {
 
         if (turret.towerLevel < 20)
         {
-            upgradeCost.text = target.turretBlueprint.upgradeCost + " PLN";
+            upgradeCost.text = target.turretBlueprint.nextUpgradeCost(turret) + " PLN";
             upgradeButton.interactable = true;
         } else
         {

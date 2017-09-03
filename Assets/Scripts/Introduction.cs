@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Introduction : MonoBehaviour {
 
- public void closeIntroduction()
+
+    public void Start()
+    {
+        WaveSpawner.gameStarted = false;
+    }
+    public void closeIntroduction()
     {
         WaveSpawner.gameStarted = true;
         gameObject.SetActive(false);
