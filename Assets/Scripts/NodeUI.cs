@@ -33,7 +33,7 @@ public class NodeUI : MonoBehaviour {
 
         // Stats display
         Turret turret = target.turret.GetComponent<Turret>();
-        dmgText.text = "OBR: " + turret.bulletDamage.ToString();
+        dmgText.text = "OBR: " + turret.showDamage().ToString();
         spdText.text = "SZYB: " + turret.fireRate.ToString();
         upgradeText.text = turret.upgradeText;
 

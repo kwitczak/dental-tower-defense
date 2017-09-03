@@ -55,7 +55,7 @@ public class Turret : MonoBehaviour
     void Start()
     {
         attackSound = GetComponent<AudioSource>();
-        baseDamage = bulletDamage;
+        baseDamage = useLaser ? damageOverTime: bulletDamage;
         startFireRate = fireRate;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         if (partToAnimate != null)
@@ -259,8 +259,17 @@ public class Turret : MonoBehaviour
     {
         towerLevel++;
         towerLevelText.text = new String('I', towerLevel);
-        bulletDamage += nextDamageUpdate();
-        fireRate += nextSpeedUpdate();
+
+        if(useLaser)
+        {
+            damageOverTime += nextDamageUpdate();
+        } else
+        {
+            bulletDamage += nextDamageUpdate();
+            fireRate += nextSpeedUpdate();
+        }
+        
+       
     }
 
     void OnMouseDown()
@@ -278,5 +287,10 @@ public class Turret : MonoBehaviour
             return Convert.ToInt32(Math.Round(bulletDamage * typeDamageReduce));
         }
         
+    }
+
+    public int showDamage()
+    {
+        return useLaser ? damageOverTime : bulletDamage;
     }
 }
