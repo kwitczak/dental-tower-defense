@@ -44,7 +44,7 @@ public class BuildManager : MonoBehaviour {
             DeselectNode();
             return;
         }
-            
+
         turretToBuild = null;
 
         selectedNode = node;

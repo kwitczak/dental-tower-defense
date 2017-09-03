@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class NodeUI : MonoBehaviour {
@@ -15,6 +16,14 @@ public class NodeUI : MonoBehaviour {
     public Button upgradeButton;
 
     public Text sellAmount;
+    private bool shown = false;
+
+    private float timeSinceLastCall;
+    public void Update()
+    {
+        timeSinceLastCall += Time.deltaTime;
+        HideIfClickedOutside();
+    }
 
     public void SetTarget(Node target)
     {
@@ -39,12 +48,16 @@ public class NodeUI : MonoBehaviour {
         }
 
         //sellAmount.text = target.turretBlueprint.GetSellAmount() + " PLN";
+        timeSinceLastCall = 0;
         ui.SetActive(true);
+        shown = true;
     }
 
     public void Hide()
     {
         ui.SetActive(false);
+        shown = false;
+        target = null;
     }
 
     public void Upgrade()
@@ -71,6 +84,15 @@ public class NodeUI : MonoBehaviour {
     {
         dmgBonusText.text = "";
         spdTextBonus.text = "";
+    }
+
+    private void HideIfClickedOutside()
+    {
+        if (Input.GetMouseButtonUp(0) && shown && timeSinceLastCall >= 0.5 &&
+            !EventSystem.current.IsPointerOverGameObject())
+        {
+            BuildManager.instance.DeselectNode();
+        }
     }
 
 }
