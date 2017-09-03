@@ -247,12 +247,12 @@ public class Turret : MonoBehaviour
 
     public int nextDamageUpdate()
     {
-        return Convert.ToInt32(Math.Round(baseDamage * 0.3));
+        return Convert.ToInt32(Math.Round(baseDamage * 0.2));
     }
 
     public int nextSpeedUpdate()
     {
-        return Convert.ToInt32(Math.Round(fireRate * 0.3));
+        return Convert.ToInt32(Math.Round(startFireRate * 0.2));
     }
 
     public void simpleUpgrade()

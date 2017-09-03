@@ -52,6 +52,7 @@ public class Enemy : MonoBehaviour {
     {
         isDead = true;
         PlayerStats.Money += worth;
+        PlayerStats.Score += worth * 100;
 
         GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(effect, 5f);

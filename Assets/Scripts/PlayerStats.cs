@@ -11,6 +11,7 @@ public class PlayerStats : MonoBehaviour {
     public int startLives;
 
     public static int Rounds;
+    public static int Score;
 
     void Start ()
     {
