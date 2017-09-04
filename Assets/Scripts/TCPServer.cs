@@ -76,6 +76,7 @@ public class TCPServer : MonoBehaviour
     {
         keepReading = false;
         keepWaiting = false;
+        Debug.Log("stopServer called!");
 
         if (SocketThread != null)
         {
@@ -83,10 +84,14 @@ public class TCPServer : MonoBehaviour
             SocketThread.Interrupt();
         }
 
-        if (handler != null && handler.Connected)
+        if (handler != null)
         {
-            handler.Disconnect(false);
-            Debug.Log("Disconnected!");
+            handler.Close();
+            if (handler.Connected)
+            {
+                handler.Disconnect(false);
+                Debug.Log("Disconnected!");
+            }
         }
     }
 
