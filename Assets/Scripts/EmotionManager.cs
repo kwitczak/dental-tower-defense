@@ -13,7 +13,7 @@ public class EmotionManager : MonoBehaviour {
     static Color focusColor = Color.white;
 
     public static int emotionMinimumWave = 1;
-    public static float affectiveReactionChance = 0.6f;
+    public static float affectiveReactionChance = 0.7f;
     public static float emotionCooldown = 10;
     public static float emotionLength = 6;
     public static float nextEmotionTime;
