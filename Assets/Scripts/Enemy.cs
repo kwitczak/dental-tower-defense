@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour {
         health = startHealth;
         beforeAffectionHealth = startHealth;
         beforeAffectionSpeed = startSpeed;
+        emotionAffected = false;
         deathSound = SoundManager.getInstance().enemyDeathSound.GetComponent<AudioSource>();
     }
 

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BuildManager : MonoBehaviour {
 
@@ -38,6 +39,9 @@ public class BuildManager : MonoBehaviour {
 
     public void SelectNode (Node node)
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
         Debug.Log("Select Node");
         if (selectedNode == node)
         {

@@ -18,6 +18,8 @@ public class NodeUI : MonoBehaviour {
     public Text sellAmount;
     private bool shown = false;
 
+    private Color noMoneyColor = new Color(0.9f, 0.48f, 0.48f);
+
     private float timeSinceLastCall;
     public void Update()
     {
@@ -39,7 +41,16 @@ public class NodeUI : MonoBehaviour {
 
         if (turret.towerLevel < 20)
         {
-            upgradeCost.text = target.turretBlueprint.nextUpgradeCost(turret) + " PLN";
+            int cost = target.turretBlueprint.nextUpgradeCost(turret);
+            upgradeCost.text = cost + " PLN";
+            if (PlayerStats.Money < cost)
+            {
+                upgradeCost.color = noMoneyColor;
+            } else
+            {
+                upgradeCost.color = Color.white;
+            }
+            
             upgradeButton.interactable = true;
         } else
         {
